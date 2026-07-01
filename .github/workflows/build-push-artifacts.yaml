@@ -60,7 +60,7 @@ jobs:
         id: image-meta
         uses: docker/metadata-action@030e881283bb7a6894de51c315a6bfe6a94e05cf # v6.0.0
         with:
-          images: ghcr.io/azimuth-cloud/azimuth-${{ matrix.component }}
+          images: ghcr.io/alexm-shpc/azimuth-${{ matrix.component }}
           # Produce the branch name or tag and the SHA as tags
           tags: |
             type=ref,event=branch
