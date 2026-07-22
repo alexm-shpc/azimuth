@@ -1,14 +1,22 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:recommended", 
-    "docker:pinDigests", 
-    "helpers:pinGitHubActionDigests", 
-    ":configMigration",  
-    "abandonments:recommended", 
+    "config:recommended",
+    "docker:pinDigests",
+    "helpers:pinGitHubActionDigests",
+    ":configMigration",
+    "abandonments:recommended",
     "security:minimumReleaseAgeNpm",
     "replacements:all",
     "workarounds:all",
     ":combinePatchMinorReleases",
+    "github>alexm-shpc/github-actions-list//renovate/azimuth-cloud"
+  ],
+  "packageRules": [
+    {
+      "matchManagers": ["pip_requirements", "pip_setup", "poetry", "pep621"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "python non-major updates"
+    }
   ]
 }
