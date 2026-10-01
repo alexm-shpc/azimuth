@@ -3,14 +3,12 @@
   "extends": [
     "config:recommended",
     "docker:pinDigests",
-    "helpers:pinGitHubActionDigests",
     ":configMigration",
     "abandonments:recommended",
-    "security:minimumReleaseAgeNpm",
-    "replacements:all",
-    "workarounds:all",
-    ":combinePatchMinorReleases",
     "github>alexm-shpc/test:renovate"
+  ],
+  "labels": [
+    "automation"
   ],
   "packageRules": [
     {
@@ -120,6 +118,16 @@
       ],
       "schedule": [
         "before 4am on the first day of january and july"
+      ]
+    },
+    {
+      "description": "Group digest updates, e.g. rebuilt Docker images, into one weekly PR",
+      "matchUpdateTypes": [
+        "digest"
+      ],
+      "groupName": "digest updates",
+      "schedule": [
+        "before 4am on monday"
       ]
     }
   ],
