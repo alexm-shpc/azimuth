@@ -14,9 +14,120 @@
   ],
   "packageRules": [
     {
-      "matchManagers": ["pip_requirements", "pip_setup", "poetry", "pep621"],
-      "matchUpdateTypes": ["minor", "patch"],
-      "groupName": "python non-major updates"
+      "description": "Wait 7 days before updating uv dependencies, matching exclude-newer in pyproject.toml. Security updates skip this and are raised immediately.",
+      "matchManagers": [
+        "pep621"
+      ],
+      "minimumReleaseAge": "7 days"
+    },
+    {
+      "description": "Update main uv dependencies weekly. Security updates skip this and are raised immediately.",
+      "matchManagers": [
+        "pep621"
+      ],
+      "matchDepTypes": [
+        "project.dependencies"
+      ],
+      "schedule": [
+        "before 4am on monday"
+      ],
+      "groupName": "python dependencies",
+      "rangeStrategy": "update-lockfile"
+    },
+    {
+      "description": "Update uv dev and test dependency groups monthly. Security updates skip this and are raised immediately.",
+      "matchManagers": [
+        "pep621"
+      ],
+      "matchDepTypes": [
+        "dependency-groups"
+      ],
+      "schedule": [
+        "before 4am on the first day of the month"
+      ],
+      "matchJsonata": [
+        "managerData.depGroup in [\"dev\", \"test\"]"
+      ],
+      "groupName": "python dev dependencies",
+      "rangeStrategy": "update-lockfile"
+    },
+    {
+      "description": "Propose .python-version updates in their own PR twice a year",
+      "matchManagers": [
+        "pyenv"
+      ],
+      "schedule": [
+        "before 4am on the first day of january and july"
+      ]
+    },
+    {
+      "description": "requires-python is raised by hand when dropping support for an old Python",
+      "matchManagers": [
+        "pep621"
+      ],
+      "matchDepTypes": [
+        "requires-python"
+      ],
+      "enabled": false
+    },
+    {
+      "description": "Wait 7 days before updating JavaScript dependencies, matching npmMinimalAgeGate in ui/.yarnrc.yml. Security updates skip this and are raised immediately.",
+      "matchManagers": [
+        "npm"
+      ],
+      "minimumReleaseAge": "7 days"
+    },
+    {
+      "description": "Update main JavaScript dependencies weekly. Security updates skip this and are raised immediately.",
+      "matchManagers": [
+        "npm"
+      ],
+      "matchDepTypes": [
+        "dependencies"
+      ],
+      "schedule": [
+        "before 4am on monday"
+      ],
+      "groupName": "javascript dependencies"
+    },
+    {
+      "description": "Update JavaScript dev dependencies and yarn monthly. Security updates skip this and are raised immediately.",
+      "matchManagers": [
+        "npm"
+      ],
+      "matchDepTypes": [
+        "devDependencies",
+        "packageManager"
+      ],
+      "schedule": [
+        "before 4am on the first day of the month"
+      ],
+      "groupName": "javascript dev dependencies"
+    },
+    {
+      "description": "Propose Node.js image version updates in their own PR twice a year",
+      "matchDatasources": [
+        "docker"
+      ],
+      "matchPackageNames": [
+        "node",
+        "docker.io/library/node"
+      ],
+      "matchUpdateTypes": [
+        "major",
+        "minor",
+        "patch"
+      ],
+      "schedule": [
+        "before 4am on the first day of january and july"
+      ]
     }
-  ]
+  ],
+  "lockFileMaintenance": {
+    "description": "Refresh uv.lock, including git sources and transitive dependencies, monthly. Renovate cannot group this with other updates. uv's exclude-newer in pyproject.toml applies the 7 day cooldown.",
+    "enabled": true,
+    "schedule": [
+      "before 4am on the first day of the month"
+    ]
+  }
 }
