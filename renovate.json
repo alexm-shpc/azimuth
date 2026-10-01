@@ -10,7 +10,7 @@
     "replacements:all",
     "workarounds:all",
     ":combinePatchMinorReleases",
-    "github>alexm-shpc/github-actions-list//renovate/azimuth-cloud"
+    "github>alexm-shpc/test:renovate"
   ],
   "packageRules": [
     {
