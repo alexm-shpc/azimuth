@@ -8,6 +8,7 @@ on:
       - master
     tags:
       - "*"
+  workflow_dispatch:
   # Also allow publication to be done via a workflow call
   # In this case, the chart version is returned as an output
   workflow_call:
@@ -59,7 +60,7 @@ jobs:
         id: image-meta
         uses: docker/metadata-action@030e881283bb7a6894de51c315a6bfe6a94e05cf # v6.0.0
         with:
-          images: ghcr.io/azimuth-cloud/azimuth-${{ matrix.component }}
+          images: ghcr.io/alexm-shpc/azimuth-${{ matrix.component }}
           # Produce the branch name or tag and the SHA as tags
           tags: |
             type=ref,event=branch
@@ -67,7 +68,7 @@ jobs:
             type=raw,value=${{ steps.semver.outputs.short-sha }}
 
       - name: Build and push image
-        uses: azimuth-cloud/github-actions/docker-multiarch-build-push@master
+        uses: azimuth-cloud/github-actions/docker-multiarch-build-push@191fd264f30d6e9ba4311119361b095407ab72be
         with:
           cache-key: ${{ matrix.component }}
           context: .
