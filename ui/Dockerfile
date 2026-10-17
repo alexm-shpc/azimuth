@@ -1,4 +1,4 @@
-FROM docker.io/library/node:24 AS build
+FROM docker.io/library/node:24@sha256:14078204b6bb268c107ceff6d3c43f45a888105e5c2b18b14c32b3409d93a1b0 AS build
 
 # yarn is provided by corepack
 RUN corepack enable
@@ -16,7 +16,7 @@ RUN yarn --cwd /application build
 
 # This intermediate image is used to fetch the GPG key for the NGINX repo
 # without polluting the runtime image with GPG packages
-FROM docker.io/library/ubuntu:24.04 AS nginx-gpg-key
+FROM docker.io/library/ubuntu:24.04@sha256:ac3a3d13e90c660a1cb3e89ec695533399f7378dc1ae5fbdc28eb5781d561594 AS nginx-gpg-key
 
 ENV NGINX_GPG_KEY="2FD21310B49F6B46"
 
@@ -28,7 +28,7 @@ RUN gpg2 --keyserver hkp://keyserver.ubuntu.com:80 --keyserver-options timeout=1
     gpg2 --export "$NGINX_GPG_KEY" > /usr/share/keyrings/nginx-archive-keyring.gpg
 
 
-FROM docker.io/library/ubuntu:24.04
+FROM docker.io/library/ubuntu:24.04@sha256:ac3a3d13e90c660a1cb3e89ec695533399f7378dc1ae5fbdc28eb5781d561594
 
 # Copy the GPG key from the intermediate container
 COPY --from=nginx-gpg-key /usr/share/keyrings/nginx-archive-keyring.gpg /usr/share/keyrings/
