@@ -54,7 +54,7 @@ jobs:
 
       - name: Get SemVer version for current commit
         id: semver
-        uses: azimuth-cloud/github-actions/semver@master
+        uses: azimuth-cloud/github-actions/semver@dfb8f6ac785d63ae0a80b507f1f53430fbcc6a4d # master
 
       - name: Calculate metadata for image
         id: image-meta
@@ -95,10 +95,10 @@ jobs:
 
       - name: Get SemVer version for current commit
         id: semver
-        uses: azimuth-cloud/github-actions/semver@master
+        uses: azimuth-cloud/github-actions/semver@dfb8f6ac785d63ae0a80b507f1f53430fbcc6a4d # master
 
       - name: Publish Helm charts
-        uses: azimuth-cloud/github-actions/helm-publish-oci@master
+        uses: azimuth-cloud/github-actions/helm-publish-oci@dfb8f6ac785d63ae0a80b507f1f53430fbcc6a4d # master
         with:
           directory: chart
           username: ${{ secrets.QUAY_IO_USER }}
@@ -109,7 +109,7 @@ jobs:
           app-version: ${{ steps.semver.outputs.short-sha }}
 
       - name: Publish artifact metadata
-        uses: azimuth-cloud/github-actions/artifacthub-metadata@master
+        uses: azimuth-cloud/github-actions/artifacthub-metadata@dfb8f6ac785d63ae0a80b507f1f53430fbcc6a4d # master
         with:
           directory: chart
           registry: quay.io
