@@ -1,11 +1,11 @@
 # Build args which are used in FROM statements must come before
 # All FROM statements in the dockerfile.
-ARG FINAL_IMAGE_TAG=nonroot
+ARG FINAL_IMAGE_TAG=nonroot@sha256:3ee00291cf386ec52a552e6a858d555debd74776eb4bfa53fa3df2cd6677515e
 
 ############################
 ## INSTALL AND BUILD APP ###
 ############################
-FROM ghcr.io/astral-sh/uv:trixie AS build
+FROM ghcr.io/astral-sh/uv:trixie@sha256:f09daa206efebee043d8e39ce5d71af377600e596fd22d504f7542a0886edc65 AS build
 # Note: distro should match final image stage to ensure build compat. trixie=debian13
 # Non-slim version required for git.
 
