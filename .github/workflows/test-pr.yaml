@@ -43,7 +43,7 @@ jobs:
     steps:
       # Check out the configuration repository
       - name: Set up Azimuth environment
-        uses: azimuth-cloud/azimuth-config/.github/actions/setup@devel
+        uses: azimuth-cloud/azimuth-config/.github/actions/setup@5388c11f8cc0ba7351f4ca971592aed69e5aab5b # devel
         with:
           os-clouds: ${{ secrets.OS_CLOUDS }}
           environment-prefix: api-ci
@@ -64,13 +64,13 @@ jobs:
 
       # Provision Azimuth using the azimuth-ops version under test
       - name: Provision Azimuth
-        uses: azimuth-cloud/azimuth-config/.github/actions/provision@devel
+        uses: azimuth-cloud/azimuth-config/.github/actions/provision@5388c11f8cc0ba7351f4ca971592aed69e5aab5b # devel
 
       # # Run the tests
       - name: Run Azimuth tests
-        uses: azimuth-cloud/azimuth-config/.github/actions/test@devel
+        uses: azimuth-cloud/azimuth-config/.github/actions/test@5388c11f8cc0ba7351f4ca971592aed69e5aab5b # devel
 
       # Tear down the environment
       - name: Destroy Azimuth
-        uses: azimuth-cloud/azimuth-config/.github/actions/destroy@devel
+        uses: azimuth-cloud/azimuth-config/.github/actions/destroy@5388c11f8cc0ba7351f4ca971592aed69e5aab5b # devel
         if: ${{ always() }}
