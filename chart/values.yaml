@@ -61,7 +61,7 @@ api:
       # The image for the statsd exporter
       image:
         repository: prom/statsd-exporter
-        tag: v0.31.0
+        tag: v0.31.0@sha256:1d5d341c4eb7abdd3445a3f85c3d498402b676ad29b4cf0421f5d280943871ab
         pullPolicy: IfNotPresent
       # Container-level security context for the statsd container
       securityContext:
