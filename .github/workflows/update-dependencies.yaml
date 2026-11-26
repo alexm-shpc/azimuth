@@ -38,20 +38,20 @@ jobs:
 
       - name: Check for most recent GitHub release
         id: next
-        uses: azimuth-cloud/github-actions/github-latest-release@master
+        uses: azimuth-cloud/github-actions/github-latest-release@48d61c034534f27036092d0b5311fee6801627fe # master
         with:
           repository: ${{ matrix.repository }}
           tags: ${{ matrix.tags || 'no' }}
 
       - name: Update dependency key
-        uses: azimuth-cloud/github-actions/config-update@master
+        uses: azimuth-cloud/github-actions/config-update@48d61c034534f27036092d0b5311fee6801627fe # master
         with:
           path: ${{ matrix.path }}
           updates: |
             ${{ matrix.version_jsonpath }}=${{ steps.next.outputs.version }}
 
       - name: Generate app token for PR
-        uses: azimuth-cloud/github-actions/generate-app-token@master
+        uses: azimuth-cloud/github-actions/generate-app-token@48d61c034534f27036092d0b5311fee6801627fe # master
         id: generate-app-token
         with:
           repository: ${{ github.repository }}
